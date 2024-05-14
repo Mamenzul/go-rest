@@ -15,6 +15,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/mamenzul/go-rest/configs"
+	"github.com/mamenzul/go-rest/services/auth"
 	"github.com/mamenzul/go-rest/services/user"
 	"github.com/tursodatabase/go-libsql"
 )
@@ -101,6 +102,10 @@ func service(s *APIServer) http.Handler {
 	userStore := user.NewStore(s.db)
 	userHandler := user.NewHandler(userStore)
 	userHandler.RegisterRoutes(r)
+
+	authStore := auth.NewStore(s.db)
+	authHandler := auth.NewHandler(authStore)
+	authHandler.RegisterRoutes(r)
 
 	return r
 }

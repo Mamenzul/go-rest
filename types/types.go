@@ -34,3 +34,19 @@ type ResetPasswordTokenPayload struct {
 	Password string `json:"password" validate:"required,min=3,max=130"`
 	Email    string `json:"email" validate:"required,email"`
 }
+
+type AuthStore interface {
+}
+
+type Session struct {
+	ID        string    `json:"id"`
+	UserID    string    `json:"userId"`
+	ExpiresAt time.Time `json:"expiresAt"`
+}
+
+type OAuthToken struct {
+	UserID       string    `json:"userId"`
+	AccessToken  string    `json:"access_token"`
+	RefreshToken string    `json:"refresh_token,omitempty"` // Optional for refresh flow
+	ExpiresAt    time.Time `json:"expiresAt"`
+}
